@@ -1,4 +1,26 @@
-# Código limpio en Go (Clean Go Code)
+# Código limpio en Go
+
+## Sobre la traducción
+
+### Autores
+
+* Documento original: [Clean Go Code](https://github.com/Pungyeon/clean-go-article) por _Lasse Martin Jakobsen_.
+* Traducción: [Jorge Fuertes Alfranca](https://jorgefuertes.com/)
+* Revisión técnica: [Carlos Ming](https://www.linkedin.com/in/carlos-ming-6a56b737/)
+
+### Por qué una traducción
+
+Quise entender bien el concepto de _código limpio_ en _Go_, y para eso nada mejor que tomar notas mientras lo estudias, las notas fueron creciendo y, en fin, se me fue de las manos. Por otro lado, me gusta mucho poder hacer una contribución a la comunidad _Go de habla hispana_, por pequeña que sea dicha contribución.
+
+Además esto me ha dado la oportunidad de introducir algunas notas, actualizaciones y puntualizaciones al texto original, que son muy pocas y breves, pero que en mi opinión son necesarias.
+
+En esencia el texto es el mismo y los conceptos están íntegros, pero si en algún caso sientes dudas, por favor, recurre al texto original y te ruego que nos envíes correcciones, _pull-requests_ y los comentarios que creas necesarios.
+
+Gracias a todos y especialmente a Carlos por ayudarme con la revisión.
+
+### Estado actual
+
+Necesito releer el texto y unificar tratamientos, además de el interfaz por la interfaz y cosas así. Asimismo hay que reescribir algunos párrafos y reducir prosa, el documento original tiene demasiada, siempre en mi opinión, y esto es un documento técnico más que filosófico.
 
 ## Prefacio: ¿Por qué escribir código limpio?
 
