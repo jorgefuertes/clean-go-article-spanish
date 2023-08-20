@@ -12,15 +12,11 @@
 
 Quise entender bien el concepto de _código limpio_ en _Go_, y para eso nada mejor que tomar notas mientras lo estudias, las notas fueron creciendo y, en fin, se me fue de las manos. Por otro lado, me gusta mucho poder hacer una contribución a la comunidad _Go de habla hispana_, por pequeña que sea dicha contribución.
 
-Además esto me ha dado la oportunidad de introducir algunas notas, actualizaciones y puntualizaciones al texto original, que son muy pocas y breves, pero que en mi opinión son necesarias.
+Además hacelor me ha dado la oportunidad de introducir algunas notas, actualizaciones y puntualizaciones al texto original, que son muy pocas y breves pero, en mi opinión, necesarias.
 
-En esencia el texto es el mismo y los conceptos están íntegros, pero si en algún caso sientes dudas, por favor, recurre al texto original y te ruego que nos envíes correcciones, _pull-requests_ y los comentarios que creas necesarios.
+En esencia el texto es el mismo y los conceptos están íntegros, pero si en algún caso tienes dudas, por favor, recurre al texto original y te ruego que nos envíes correcciones, _pull-requests_, y los comentarios que creas necesarios.
 
-Gracias a todos y especialmente a Carlos por ayudarme con la revisión.
-
-### Estado actual
-
-Necesito releer el texto y unificar tratamientos, además de el interfaz por la interfaz y cosas así. Asimismo hay que reescribir algunos párrafos y reducir prosa, el documento original tiene demasiada, siempre en mi opinión, y esto es un documento técnico más que filosófico.
+Gracias a todos y especialmente a _Carlos Ming_ por ayudarme con la revisión.
 
 ## Prefacio: ¿Por qué escribir código limpio?
 
@@ -57,7 +53,7 @@ Me gustaría tomarme unas frases para aclarar mi postura sobre `gofmt` porque ha
   * [Punteros en Go](#punteros-en-go)
   * [Las clausuras son punteros a funciones](#las-clausuras-son-punteros-a-funciones)
   * [Interfaces en Go](#interfaces-en-go)
-  * [El interfaz vacío `interface{}`](#el-interfaz-vacío)
+  * [La interfaz vacía](#la-interfaz-vacía)
 * [Sumario](#sumario)
 
 ## Introducción al código limpio
@@ -426,7 +422,7 @@ q, err := ch.QueueDeclare(QueueOptions{
 })
 ```
 
-El resto de los valores son inicializados a su valor por defecto `false`, excepto los `Arguments`, que es un interface con un valor por defecto `nil`. Esta aproximación es no solo más segura, sino que también es mucho más clara acerca de nuestras intenciones. Además en este caso podemos escribir menos código. Una ganancia para todos los involucrados en este proyecto.
+El resto de los valores son inicializados a su valor por defecto `false`, excepto los `Arguments`, que es una interfaz con un valor por defecto `nil`. Esta aproximación es no solo más segura, sino que también es mucho más clara acerca de nuestras intenciones. Además en este caso podemos escribir menos código. Una ganancia para todos los involucrados en este proyecto.
 
 Una **nota final** acerca de esto: No siempre es posible cambiar la firma de una función. En este caso, por ejemplo, no tenemos control sobre la firma de la función `QueueDeclare`, porque pertenece a la biblioteca de _RabbitMQ_. No es nuestro código, así que no podemos cambiarla, pero podemos _embolverla_ para que se ajuste a nuestros propósitos:
 
@@ -812,7 +808,7 @@ func (err *errDetails) Type() error {
 }
 ```
 
-Esta nueva estructura todavía funciona como nuestro error estándar. Podemos compararla con `nil`, porque es la implementación de un interfaz, y podemos llamar a `.Error()` desde él, así que no rompe ninguna implementación existente. Sin embargo tiene la ventaja de que ahora podemos comprobar el tipo de error, como podíamos previamente, gracias a nuestro error contiene los detalles dinámicos:
+Esta nueva estructura todavía funciona como nuestro error estándar. Podemos compararla con `nil`, porque es la implementación de una interfaz, y podemos llamar a `.Error()` desde él, así que no rompe ninguna implementación existente. Sin embargo tiene la ventaja de que ahora podemos comprobar el tipo de error, como podíamos previamente, gracias a nuestro error contiene los detalles dinámicos:
 
 ```go
 func (store *Store) GetItem(id string) (Item, error) {
@@ -1089,9 +1085,9 @@ Observe cómo hemos movido parte del desorden de `Do` adentro de `concat`. La fu
 
 > N. del T.: El propio autor se da cuenta de que esto es lioso y así nos lo hace notar. En mi opinión esto no es, del todo, código limpio y perjudica a la legibilidad. Ruego al lector que las técnicas de código limpio no le impidan tener presente un principio anterior que no por viejo es incorrecto o menos útil: **KISS** o _Keep it simple, stupid!_ Valore siempre qué técnica es mejor, más limpia, más clara, más legible, en cada caso y no se obceque con el _código limpio_ cuando claramente esté afectando a la legibilidad o comprensibilidad de la lógica que está desarrollando.
 
-En la siguiente sección entraremos en los interfaces. Antes de hacerlo, vamos a tomarnos un momento para hablar de la diferencia entre interfaces y clausuras. Vale la pena señalar que interfaces y clausuras pueden, muchas veces, resolver los mismos problemas. La forma en que _Go_ implementa los interfaces puede, a veces, dificultar la decisión de usar interfaces o clausuras para un problema en particular.
+En la siguiente sección entraremos en los interfaces. Antes de hacerlo, vamos a tomarnos un momento para hablar de la diferencia entre interfaces y clausuras. Vale la pena señalar que interfaces y clausuras pueden, muchas veces, resolver los mismos problemas. La forma en que _Go_ implementa las interfaces puede, a veces, dificultar la decisión de usar interfaces o clausuras para un problema en particular.
 
-Por lo general no es demasiado importante si se usa un interfaz o una clausura. La elección correcta es cualquiera que resulta el problema en cuestión. Las clausuras suelen ser más simples de implementar si la operación es de naturaleza simple. Sin embargo, tan pronto como la lógica que contienen se vuelva compleja, se debe considerar seriamente sustituir la clausura por un interfaz.
+Por lo general no es demasiado importante si se usa una interfaz o una clausura. La elección correcta es cualquiera que resulta el problema en cuestión. Las clausuras suelen ser más simples de implementar si la operación es de naturaleza simple. Sin embargo, tan pronto como la lógica que contienen se vuelva compleja, se debe considerar seriamente sustituir la clausura por una interfaz.
 
 Dave Cheney escribió un excelente artículo sobre este particular, así como una charla:
 
@@ -1104,13 +1100,13 @@ Jon Bodner también tiene una charla relacionada:
 
 ### Interfaces en _Go_
 
-En general, la aproximación de _Go_ para el manejo de _interfaces_ es bastante diferente de las de otros lenguajes. Los interfaces no se implementan **explicitamente** como en _Java_, por el contrario, se crean implicitamente si cumplen completamente el contrato del interfaz. Por ejemplo, si cualquier `struct` tiene un método `Error()` que devuelve una cadena, entonces implementa, o cumple, el interface `Error` y puede retornarse como un `error`.
+En general, la aproximación de _Go_ para el manejo de _interfaces_ es bastante diferente de las de otros lenguajes. Las interfaces no se implementan **explicitamente** como en _Java_, por el contrario, se crean implicitamente si cumplen completamente el contrato de la interfaz. Por ejemplo, si cualquier `struct` tiene un método `Error()` que devuelve una cadena, entonces implementa, o cumple, la interfaz `Error` y puede retornarse como un `error`.
 
 Esta forma de implementar interfaces es muy facil y confiere a _Go_ un ritmo más rápido y dinámico.
 
 Sin embargo esta aproximación tiene algunas desventajas. Al no tratarse de una **implementación explícita**, puede ser más dificil ver que interfaces implementa una estructura. Por lo tanto, es común definir interfaces con la menor cantidad de métodos posible, para facilitar la comprensión de si una estructura en particular cumple con el contrato de la interfaz.
 
-> NOTA: Hay extensiones para los IDEs (entornos de desarrollo o editores de código) que facilitan mucho la visualización ya que nos avisan de que interfaces implementa cada estructura o, viendo una interfaz, nos dice que structuras la implementan. Una de estas extensiones es _tooltitude_.
+> N del T.: Hay extensiones para los IDEs (entornos de desarrollo o editores de código) que facilitan mucho la visualización ya que nos avisan de que interfaces implementa cada estructura o, viendo una interfaz, nos dice que structuras la implementan. Una de estas extensiones es _tooltitude_.
 
 Una alternativa es crear constructores que devuelvan una interfaz en lugar del tipo concreto:
 
@@ -1133,7 +1129,7 @@ func NewNullWriter() io.Writer {
 
 > N. del T.: Tenga cuidado a la hora de devolver interfaces en lugar de tipos concretos. Esto también rompe, en mi opinión, el principio **KISS**, y dificulta el uso de las estructuras por parte de terceros. Siempre que vaya a hacer algo así, plantéese si es realmente necesario y en como afecta a la legibilidad.
 
-La función anterior asegura que la estructura `NullWriter` implementa el interface `Writer`. Si borrásemos el método `Write` de `NullWriter`, tendremos un error de compilación. Es una buena forma de asegurar que nuestro código se comportará como esperamos y que puede contar con ele compilador como red de seguridad en caso de que intentemos escribir código inválido.
+La función anterior asegura que la estructura `NullWriter` implementa la interfaz`Writer`. Si borrásemos el método `Write` de `NullWriter`, tendremos un error de compilación. Es una buena forma de asegurar que nuestro código se comportará como esperamos y que puede contar con ele compilador como red de seguridad en caso de que intentemos escribir código inválido.
 
 En ciertos casos, puede que no sea deseable escribir un constructor, o tal vez nos gustaría que nuestro constructor devuelva el tipo concreto, en lugar de la interfaz. Como ejemplo, la estructura `NullWriter` no tiene propiedades para completar en la inicialización, por lo que escribir un constructor es un poco redundante. Por lo tanto, podemos usar el método menos detallado para verificar la compatibilidad de la interfaz:
 
@@ -1156,7 +1152,7 @@ var _ io.Reader = &NullWriter{}
 
 Del código anterior, es muy fácil entender qué interfaces deben cumplirse, y el compilador lo revisará en tiempo de compilación. Esta es generalmente la solución preferida para verificar el cumplimiento del contrato de interfaz.
 
-> N. del T.: Actualmente, el compilador de _Go_ nos avisará y se negará a compilar siempre que intentemos utilizar una estructura como argumento cuando se nos pida una determinada interfaz y esta estructura no cumpla el contrato de dicha interfaz. Lo explicado podría ser util en un paquete en el que vayamos a devolver esta estructura, que debería implementar una determinada interfaz, pero en el mismo paquete, o en todo el módulo, o en todo el programa, no vamos a utilizarla para cumplir dicha interfaz. Un usuario externo al paquete sí podría hacerlo, llamando a un tercer paquete. Es raro el caso en que la compilación podría resultar válida y no cumplirse un contrato de una interfaz.
+> N. del T.: Actualmente, el compilador de _Go_ nos avisará y se negará a compilar siempre que intentemos utilizar una estructura como argumento cuando se nos pida una determinada interfaz y esta estructura no cumpla el contrato de dicha interfaz. Sin embargo lo explicado podría ser util en un paquete en el que vayamos a devolver esta estructura, que debería implementar una determinada interfaz externa, de otro paquete.
 
 Todavía hay otro método para intentar ser más explícito acerca de que interfaces implementa una determinada estructura. Sin embargo este tercer método consigue realmente lo contrario de lo que queremos. Implica utilizar interfaces embebidas como propiedades de una estructura.
 
@@ -1247,7 +1243,7 @@ func NewNullWriter() io.Writer {
 }
 ```
 
-El siguiente código compila. Técnicamente estamos implementando el interface `Writter` en nuestro `NullWriter`, debido a que `NullWriter` heredará todas las funciones que están asociadas a esta interfaz. Algunos lo verán como una forma de mostrar que `NullWriter` está implementando la interfaz `Writer`, sin embargo, debemos tener cuidado al usar esta técnica.
+El siguiente código compila. Técnicamente estamos implementando la interfaz `Writter` en nuestro `NullWriter`, debido a que `NullWriter` heredará todas las funciones que están asociadas a esta interfaz. Algunos lo verán como una forma de mostrar que `NullWriter` está implementando la interfaz `Writer`, sin embargo, debemos tener cuidado al usar esta técnica.
 
 ```go
 func main() {
@@ -1257,7 +1253,7 @@ func main() {
 }
 ```
 
-Como dijimos, este código compilará. El `NewNullWriter` devuelve un `Writer`, y todo va como miel sobre hojuelas según el compilador, porque `NullWriter` cumple con el contrato de `io.Writer`, a través de la interface incrustada. via the embedded interface. Sin embargo, correr el código anterior resultará en:
+Como dijimos, este código compilará. El `NewNullWriter` devuelve un `Writer`, y todo va como miel sobre hojuelas según el compilador, porque `NullWriter` cumple con el contrato de `io.Writer`, a través de la interfaz incrustada. Sin embargo, correr el código anterior resultará en:
 
 > panic: runtime error: invalid memory address or nil pointer dereference
 
@@ -1347,11 +1343,11 @@ func TestFn(t *testing.T) {
 
 Al construir nuestra estructura `Pipe` con `NullWriter` (en lugar de otro _writer_), no sucederá nada cuando llamemos a `Save()`, silenciosamente descartará la operación. Sólo hemos agregado cuatro líneas de código. Por eso se recomienda que las interfaces sean lo más pequeñas posibles en un _Go_ idiomático: hace que sea más facil implementar patrones como el que acabamos de ver. Sin embargo, esta implementación de interfaces también tiene un _gran inconveniente_.
 
-### La `interface{}` vacía
+### La interfaz vacía
 
 En versiones anteriores a la _1.18_, Go no disponía de una implementación de genéricos o _generics_, ahora ya la tiene y debes tenerlo en cuenta antes de leer este punto, que se pensó antes de que existiera dicha implmentación. Aun así la reseñamos a continuación, ya que puede ser util en determinados casos.
 
-Los programadores se volvieron un poco creativos para encontrar alternativas antes de disponer de genéricos, la mayor parte de las veces usando la `interface{}` vacía. Esta sección describe como, a menudo, estas implementaciones deben ser consideradas una mala práctica y un _código no limpio_. Habrá también ejemplos del uso de `interface{}` vacía y como evitar algunos de sus inconvenientes.
+Los programadores se volvieron un poco creativos para encontrar alternativas antes de disponer de genéricos, la mayor parte de las veces usando la interfaz vacía. Esta sección describe como, a menudo, estas implementaciones deben ser consideradas una mala práctica y un _código no limpio_. Habrá también ejemplos del uso de la interfaz vacía y como evitar algunos de sus inconvenientes.
 
 Ya mencionamos que _Go_ determina cuando un tipo (`type`) implementa una interface comprobando si dicho tipo **cumple con el contrato de la interfaz**, es decir, que implementa todos los métodos reseñados en dicha interfaz. Así que, ¿Qué ocurre cuando una interface no declara ningún método?
 
@@ -1361,7 +1357,7 @@ type EmptyInterface interface {}
 
 > N. del T.: En versiones modernas de _Go_ hay un nuevo tipo integrado, `any`, que es equivalente a `interface{}`. Si bien muchos programadores están acostumbrados a `interface{}` y lo entenderán perfectamente, podría ser más idiomático utilizar `any`.
 
-Esta declaración equivale al type integrado `interface{}` de _Go_. Una consecuencia natural de esto es que podemos escribir funciones genéricas que acepten cualquier tipo de argumentos, lo que es muy útil para algunas clases de funciones, como podrían ser funciones de ayuda a la impresión o _print helpers_, como en la función `Println` del paquete `fmt`:
+Esta declaración equivale al tipo integrado `interface{}` de _Go_. Una consecuencia natural de esto es que podemos escribir funciones genéricas que acepten cualquier tipo de argumentos, lo que es muy útil para algunas clases de funciones, como podrían ser funciones de ayuda a la impresión o _print helpers_, como en la función `Println` del paquete `fmt`:
 
 ```go
 func Println(v ...interface{}) {
@@ -1498,8 +1494,8 @@ También es importante comprender que el fanatismo nunca es el objetivo del _có
 
 Espero que se una a esta discusión para ayudar a la comunidad de Go a definir (y refinar) el concepto de _código limpio_. Establezcamos un terreno común para que podamos mejorar el software, no solo para nosotros sino para el bien de todos.
 
-> N. del T.: El autor no es ningún tonto, en esto estaremos todos de acuerdo, y nos da pistas muy importantes que tendemos a obviar, como **"Avanzamos rápido yendo despacio"**. Si alguien intenta convencer de que escribir _código limpio_, hacer todos las interfaces, puertos, adaptadores, tests y consensuarlo todo con tu equipo, y con un posible arquirecto, es más rápido que simplemente sacar el proyecto adelante con cafeína, trabajo, ilusión, **KISS**, y artesanía pura de la de toda vida... Hazte un favor, no te dejes engañar.
+> N. del T.: El autor no es ningún tonto, en esto estaremos todos de acuerdo, y nos da pistas muy importantes que tendemos a obviar, como **"Avanzamos rápido yendo despacio"**. Escribir código limpio es, a veces, más lento que escribir simplemente el código que escribiríamos naturalmente para cubrir el expediente y sacar el proyecto adelante, y quizá no sería código malo o sucio, simplemente a la hora de necesitar adaptarlo a otros sistemas, hacer más tests o compartirlo con compañeros, necesitaríamos limpiarlo.
 >
-> Así que, conociendo todo lo expuesto, que es de suma importancia, no seas fanático. Hay cosas que se podrán hacer bien desde el inicio, y hay otras que no, que funcionarán y que se podrán mejorar más adelante, con una refactorización programada o bien cuando sea realmente necesario.
+> Así que, conociendo todo lo expuesto, que es de suma importancia, no seas fanático. Hay cosas que se podrán hacer bien desde el inicio, y hay otras que no, que funcionarán y que se podrán mejorar más adelante, con una refactorización programada o bien cuando sea realmente necesario. Lo interesante es tener el la cabeza el paradigma y tratar de trabajar con él siempre que sea posible.
 >
 > La sola lectura de este artículo, por otra parte, te habrá hecho crecer como programador. Conmigo lo hizo, y por eso decidí traducirlo al español, por si podía facilitarte su lectura y de paso aportar alguna modesta nota o idea.
