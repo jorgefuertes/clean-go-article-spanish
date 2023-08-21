@@ -12,7 +12,7 @@
 
 Quise entender bien el concepto de _código limpio_ en _Go_, y para eso nada mejor que tomar notas mientras lo estudias, las notas fueron creciendo y, en fin, se me fue de las manos. Por otro lado, me gusta mucho poder hacer una contribución a la comunidad _Go de habla hispana_, por pequeña que sea dicha contribución.
 
-Además hacelo me ha dado la oportunidad de introducir algunas notas, actualizaciones y puntualizaciones al texto original, que son muy pocas y breves pero, en mi opinión, necesarias.
+Además hacerlo me ha dado la oportunidad de introducir algunas notas, actualizaciones y puntualizaciones al texto original, que son muy pocas y breves pero, en mi opinión, necesarias.
 
 En esencia el texto es el mismo y los conceptos están íntegros, pero si en algún caso tienes dudas, por favor, recurre al texto original y te ruego que nos envíes correcciones, _pull-requests_, y los comentarios que creas necesarios.
 
