@@ -20,17 +20,19 @@ Gracias a todos y especialmente a _Carlos Ming_ por ayudarme con la revisión.
 
 ## Prefacio: ¿Por qué escribir código limpio?
 
-Este documento es una referencia para la comunidad de _Go_ que pretende ayudar a los desarrolladores a escribir un código más limpio. Cuando estés trabajando en un proyecto personal o como parte de un equipo más grande, escribir código limpio es una habilidad que debes tener. Establecer buenos paradigmas y estándares consistentes y accesibles para escribir código limpio puede ayudara prevenir que los desarrolladores malgasten muchas horas sin sentido intentando entender el trabajo ajeno e incluso el suyo propio.
+Este documento es una referencia para la comunidad de _Go_ que pretende ayudar a los desarrolladores a escribir un código más limpio. Cuando estés trabajando en un proyecto personal o como parte de un equipo más grande, escribir código limpio es una habilidad que debes tener. Establecer buenos paradigmas y estándares consistentes y accesibles para escribir código limpio puede ayudar a prevenir que los desarrolladores malgasten muchas horas sin sentido, intentando entender el trabajo ajeno, e incluso el suyo propio.
 
 > _No leemos código, lo decodificamos._ – Peter Seibel
 
-Como desarrolladores, estamos tentados a veces de escribir código de una forma rápida, sin reparar en las mejores prácticas, causando que las revisiones y las pruebas del código sean más difíciles. En algún sentido, estamos codificando, y, al hacerlo así, creamos dificultades para que otros pueden decodificar nuestro trabajo. Sin embargo queremos que nuestro código sea utilizable, legible y sostenible. Todo ello requiere codificar de la forma correcta, no de la forma fácil.
+Como desarrolladores, estamos tentados a veces de escribir código de una forma rápida, sin reparar en las mejores prácticas, causando que las revisiones y las pruebas del código sean más difíciles. En algún sentido estamos codificando y, al hacerlo así, creamos dificultades para que otros pueden decodificar nuestro trabajo. Sin embargo queremos que nuestro código sea utilizable, legible y sostenible, y todo ello requiere codificar de la forma correcta, no de la forma fácil y rápida.
 
-Este documento comienza con una breve y simple introducción a los fundamentos de la escritura de código limpio. Más adelante discutiremos ejemplos concretos de refactorización específica para _Go._
+Este documento comienza con una breve y simple introducción a los fundamentos de la escritura de código limpio. Más adelante discutiremos ejemplos específicos para _Go_.
 
 ### Unas palabras sobre `gofmt`
 
-Me gustaría tomarme unas frases para aclarar mi postura sobre `gofmt` porque hay muchas cosas con las que no estoy de acuerdo cuando se trata de esta herramienta. Prefiero el `snake_case` al `CamelCase`, y me gusta nombrar a mis constantes en mayúsculas. Naturalmente, también tengo muchas opiniones sobre la colocación de los corchetes. Dicho esto, `gofmt` nos permite tener un estándar común para escribir código _Go_, y eso es genial. Como desarrollador, puedo entender que los programadores _Go_ se sientan limitados por `gofmt`, especialmente si no están de acuerdo con algunas de sus reglas. Pero en mi opinión, un código homogéneo es más importante que tener total libertad expresiva.
+Me gustaría aclarar mi postura sobre `gofmt` porque hay muchas cosas con las que no estoy de acuerdo al respecto de esta herramienta. Prefiero el `snake_case` al `CamelCase`, y me gusta nombrar a mis constantes en mayúsculas y, naturalmente, también tengo mi opinión sobre la colocación de los corchetes.
+
+Dicho esto, `gofmt` nos permite tener un estándar común para escribir código _Go_ y eso es genial. Como desarrollador, puedo entender que los programadores _Go_ se sientan limitados por `gofmt`, especialmente si no están de acuerdo con algunas de sus reglas, pero en mi opinión, un código homogéneo es más importante que tener una total libertad de expresión.
 
 ## Tabla de contenidos
 
@@ -58,7 +60,7 @@ Me gustaría tomarme unas frases para aclarar mi postura sobre `gofmt` porque ha
 
 ## Introducción al código limpio
 
-El código limpio es el concepto pragmático de promover un software legible y de fácil mantenimiento. El código limpio establece confianza en la base de código y ayuda a minimizar las posibilidades de introducir errores por descuido. También ayuda a los desarrolladores a conservar su agilidad, la cual suele disminuir a medida que la base de código se expande.
+El concepto de _código limpio_ es el pragmatismo de promover un sofware legible y de facil mantenimiento. Establece una confianza en la base de código y ayuda a minimizar las posibilidades de introducir errores por descuido. También ayuda a los desarrolladores a conservar su agilidad, que suele disminuir a medida que crece el código.
 
 ### Desarrollo dirigido por pruebas
 
